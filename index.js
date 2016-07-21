@@ -1,16 +1,7 @@
-const os = require('os')
-const darwin = require('./platform/darwin')
+
+const { getLocale } = require('./platform/')
 const { sendSessionData } = require('./action')
 const { buildExportCommands } = require('./command')
-
-const getLocale = () => {
-  const platform = os.platform()
-  switch(platform){
-    case 'darwin':
-      return darwin.getLocale()
-  }
-  return new Promise( (res) => res() )
-}
 
 exports.middleware = (store) => (next) => (action) => {
   if ('SESSION_ADD' !== action.type) {
