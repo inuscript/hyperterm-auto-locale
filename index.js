@@ -13,7 +13,12 @@ exports.middleware = (store) => (next) => (action) => {
       next(action)
       return
     }
-    const command = buildExportCommands(locale).join(" && ") + "\n"
+    // SEE: https://github.com/zeit/hyperterm/blob/master/app/lib/actions/ui.js#L146
+    const command = [
+      buildExportCommands(locale).join(" && "),
+      "clear", // clear screen
+      "",
+    ].join("\n")
     store.dispatch(sendSessionData(action.uid, command))
     next(action)
   })
