@@ -22,7 +22,7 @@ exports.middleware = (store) => (next) => (action) => {
       next(action)
       return
     }
-    const command = buildExportCommands(locale).join("&&") + "\n"
+    const command = buildExportCommands(locale).join(" && ") + "\n"
     store.dispatch(sendSessionData(action.uid, command))
     next(action)
   })
